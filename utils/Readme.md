@@ -1,1 +1,1 @@
-The utils directory contains all the non-react helper codes.
+The utils directory contains all the non react helper codes.
