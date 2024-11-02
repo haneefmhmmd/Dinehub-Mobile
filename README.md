@@ -53,7 +53,7 @@ This project is developed and maintained by the following authors:
 - **Deanne Laylay** - [GitHub](https://github.com/author3) | [Email](mailto:author3@example.com)
 - **Christy Jose** - [GitHub](https://github.com/author4) | [Email](mailto:author4@example.com)
 - **Akshar Devalkumar** - [GitHub](https://github.com/author5) | [Email](mailto:author5@example.com)
-- **Meetkumar Brijeshbhai** - [GitHub](https://github.com/author5) | [Email](mailto:author5@example.com)
+- **Meetkumar Brijeshbhai** - [GitHub](https://github.com/meetp0108) | [Email](mailto:meet36043@gmail.com)
 
 Feel free to reach out to any of the authors for questions or contributions.
 
