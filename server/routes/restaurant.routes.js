@@ -14,4 +14,15 @@ router.post("/restaurant", controller.create);
  */
 router.get("/restaurant", controller.getAll);
 
+// Define the login route for restaurants
+// This route handles POST requests to /restaurant/login
+// It invokes the login method from the controller to authenticate a restaurant.
+router.post("/restaurant/login", controller.login);
+
+// Define the route for updating restaurant details
+// This route handles PUT requests to /restaurant/:id
+// The :id parameter represents the unique identifier of the restaurant to be updated.
+// It invokes the update method from the controller to modify the restaurant's information.
+router.put("/restaurant/:id", controller.update);
+
 module.exports = router;
