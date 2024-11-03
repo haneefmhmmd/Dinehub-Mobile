@@ -62,3 +62,58 @@ exports.getAll = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+/**
+ * Handles restaurant login by verifying business email and password.
+ * 
+ * @param {Object} req - The request object containing restaurant credentials.
+ * @param {Object} res - The response object used to send responses back to the client.
+ * @returns {Promise<void>} Sends back a response indicating the success or failure of the login attempt.
+ */
+exports.login = async (req, res) => {
+  // Check if businessEmail and password are provided
+  if (!req.body.businessEmail || !req.body.password) {
+    return res.status(400).json({ error: "Please make sure all the fields are completed!" });
+  }
+
+  try {
+    const businessEmail = req.body.businessEmail;
+    const password = req.body.password;
+
+    // Look for the restaurant in the database by businessEmail
+    const checkRestaurant = await Restaurant.findOne({ businessEmail });
+
+    // If restaurant not found, return a 404 error
+    if (!checkRestaurant) {
+      return res.status(404).send({ message: "Restaurant not found!" });
+    }
+
+    // Verify the restaurant's password
+    const restaurant = await Restaurant.login(businessEmail, password);
+
+    // If login failed (e.g., incorrect password), return an error message
+    if (!restaurant) {
+      return res.status(404).send({ message: "Error logging in!" });
+    }
+
+    // Create and save token in cookie after successful login
+    const token = createToken(restaurant._id);
+
+    res.cookie("jwt", token, {
+      httpOnly: true, // Prevents client-side JavaScript from accessing the cookie
+      maxAge: 3 * 24 * 60 * 60 * 1000, // Cookie expiration time (3 days)
+    });
+
+    // Exclude the password from the response object
+    const { password: _, ...rest } = restaurant.toObject();
+
+    // Respond with the restaurant data and the token
+    res.status(200).json({
+      restaurant: rest,
+      token,
+    });
+  } catch (error) {
+    // Handle any errors that occur during the login process
+    res.status(400).json({ error: error.message });
+  }
+};
