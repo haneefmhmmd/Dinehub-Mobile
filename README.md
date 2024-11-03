@@ -53,7 +53,7 @@ This project is developed and maintained by the following authors:
 
 - **Haneef Muhammad** - [GitHub](https://github.com/haneefmhmmd) | [Email](mailto:haneefmhmmd@gmail.com)
 - **Dilshan Nayanamadhu** - [GitHub](https://github.com/author2) | [Email](mailto:author2@example.com)
-- **Deanne Laylay** - [GitHub](https://github.com/author3) | [Email](mailto:author3@example.com)
+- **Deanne Laylay** - [GitHub](https://github.com/deannesl08) | [Email](mailto:deannelaylay@gmail.com)
 - **Christy Jose** - [GitHub](https://github.com/author4) | [Email](mailto:author4@example.com)
 - **Akshar Devalkumar** - [GitHub](https://github.com/author5) | [Email](mailto:author5@example.com)
 - **Meetkumar Brijeshbhai** - [GitHub](https://github.com/meetp0108) | [Email](mailto:meet36043@gmail.com)
