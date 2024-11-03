@@ -117,3 +117,53 @@ exports.login = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+/**
+ * Updates restaurant details based on the provided data.
+ * 
+ * @param {Object} req - The request object containing the updated restaurant information and the restaurant ID.
+ * @param {Object} res - The response object used to send responses back to the client.
+ * @returns {Promise<void>} Sends back a response indicating the success or failure of the update attempt.
+ */
+exports.update = async (req, res) => {
+  // Check if all required fields are provided
+  if (
+    !req.body.name ||
+    !req.body.businessEmail ||
+    !req.body.password ||
+    !req.body.address ||
+    !req.body.contactNumber ||
+    !req.body.cuisine ||
+    !req.body.about
+  ) {
+    return res
+      .status(400)
+      .json({ error: "Please make sure all the fields are completed!" });
+  }
+
+  const { id } = req.params; // Extract the restaurant ID from request parameters
+
+  try {
+    // Hash the password if it is being updated
+    if (req.body.password) {
+      const salt = await bcrypt.genSalt();
+      req.body.password = await bcrypt.hash(req.body.password, salt);
+    }
+
+    // Update the restaurant in the database and return the updated document
+    const updatedRestaurant = await Restaurant.findByIdAndUpdate(id, req.body, {
+      new: true, // Return the modified document rather than the original
+    });
+
+    // If restaurant not found, return a 404 error
+    if (!updatedRestaurant) {
+      return res.status(404).json({ error: "Restaurant not found" });
+    }
+
+    // Respond with the updated restaurant data
+    res.json({ restaurant: updatedRestaurant });
+  } catch (error) {
+    // Handle any errors that occur during the update process
+    res.status(400).json({ error: error.message });
+  }
+};
