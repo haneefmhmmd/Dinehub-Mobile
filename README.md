@@ -34,7 +34,7 @@ Follow the instructions to run the app on an iOS or Android emulator, or on a ph
 To get started with DineHub Mobile, clone the repository and install the dependencies:
 ```bash
 git clone https://github.com/your-username/dinehub-mobile.git
-cd dinehub-mobile
+cd dinehub-mobile/mobile-app
 npm install
 ```
 
