@@ -1,0 +1,2 @@
+DineHub is a modern restaurant reservation platform crafted to simplify dining experiences through seamless seat reservations. With a sleek react-native mobile app as the frontend adorned with intuitive UI for elegant and adaptive user interface elements, users can effortlessly navigate and interact with the application. On the backend, an efficient Express.js server handles requests, ensuring reliability and scalability. Data is securely stored and managed using MongoDB, ensuring a robust foundation for storing restaurant and user information.
+
