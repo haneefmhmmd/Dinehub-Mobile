@@ -31,15 +31,18 @@ Make sure to install the **Expo Go** app on your mobile device (available on iOS
 Follow the instructions to run the app on an iOS or Android emulator, or on a physical device using the Expo Go app.
 
 ## Installation
-To get started with DineHub Mobile, clone the repository and install the dependencies:
+To get started with DineHub Mobile, clone the repository and install the dependencies for the mobile-app and server side:
 ```bash
 git clone https://github.com/your-username/dinehub-mobile.git
-cd dinehub-mobile
+cd dinehub-mobile/mobile-app
+npm install
+
+cd dinehub-mobile/server
 npm install
 ```
 
 ## Usage
-To start the development server, run:
+To start the development server, navigate to the mobile-app or server, run:
 ```bash
 npm run start
 ```
