@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import ScreenHeaderBtn from "../components/header/ScreenHeaderBtn";
+import Welcome from "../components/home/welcome/Welcome";
 import { COLORS, icons, images, SIZES } from "../constants";
 
 export default function App() {
@@ -25,11 +26,10 @@ export default function App() {
         <View
           style={{
             flex: 1,
-            padding: SIZES.large,
+            padding: SIZES.medium,
           }}
         >
-          <Text>Open up index.jsx to start working on your app!</Text>
-          <StatusBar style="auto" />
+          <Welcome />
         </View>
       </ScrollView>
     </SafeAreaView>
