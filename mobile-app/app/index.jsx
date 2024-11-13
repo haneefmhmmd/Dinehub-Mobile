@@ -3,6 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
 
 import ScreenHeaderBtn from "../components/header/ScreenHeaderBtn";
+import PopularRestaurants from "../components/home/popular/PopularRestaurants";
 import Welcome from "../components/home/welcome/Welcome";
 import { COLORS, icons, images, SIZES } from "../constants";
 
@@ -17,7 +18,7 @@ export default function App() {
             <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
           ),
           headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimension="60%" />
+            <ScreenHeaderBtn iconUrl={icons.user} dimension="60%" />
           ),
           headerTitle: "",
         }}
@@ -30,6 +31,7 @@ export default function App() {
           }}
         >
           <Welcome />
+          <PopularRestaurants />
         </View>
       </ScrollView>
     </SafeAreaView>
