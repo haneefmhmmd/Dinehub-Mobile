@@ -25,8 +25,8 @@ router.post("/restaurant/login", controller.login);
 // It invokes the update method from the controller to modify the restaurant's information.
 router.put("/restaurant/:id", controller.update);
 
-router.delete("/restaurant/:id", controller.delete);
+// router.delete("/restaurant/:id", controller.delete);
 
-router.get("/restaurant/:id", controller.getById);
+// router.get("/restaurant/:id", controller.getById);
 
 module.exports = router;
