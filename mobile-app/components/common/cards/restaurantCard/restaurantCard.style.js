@@ -21,8 +21,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   logoImage: {
-    width: "70%",
-    height: "70%",
+    width: 50,
+    height: 50,
+    borderRadius: "50%",
   },
   cuisine: {
     fontSize: SIZES.medium,
@@ -41,16 +42,21 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
+  ratingContainer: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+  },
   rating: {
     fontSize: SIZES.medium - 2,
     fontFamily: FONT.regular,
     color: "#B3AEC6",
     marginLeft: 4,
+    marginTop: 2,
   },
-  ratingContainer: {
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
+  ratingImage: {
+    width: 24,
+    height: 24,
   },
 });
 

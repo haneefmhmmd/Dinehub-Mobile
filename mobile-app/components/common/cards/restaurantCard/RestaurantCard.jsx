@@ -6,21 +6,18 @@ import { icons } from "../../../../constants";
 import styles from "./restaurantCard.style";
 
 const RestaurantCard = ({ data, handlePress }) => {
-  console.log(data);
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => handlePress(data)}
     >
-      <TouchableOpacity style={styles.logoContainer}>
-        <Image
-          source={{
-            uri: data.logoHref ? data.logoHref : "",
-          }}
-          resizeMode="contain"
-          style={styles.logoImage}
-        />
-      </TouchableOpacity>
+      <Image
+        source={{
+          uri: data.logoHref ? data.logoHref : "",
+        }}
+        resizeMode="cover"
+        style={styles.logoImage}
+      />
       <Text style={styles.cuisine} numberOfLines={1}>
         {data.cuisine}
       </Text>
@@ -29,7 +26,11 @@ const RestaurantCard = ({ data, handlePress }) => {
           {data.name}
         </Text>
         <View style={styles.ratingContainer}>
-          <Image source={icons.star} resizeMode="contain" />
+          <Image
+            style={styles.ratingImage}
+            source={icons.star}
+            resizeMode="contain"
+          />
           <Text style={styles.rating}>{data.rating} / 5</Text>
         </View>
       </View>

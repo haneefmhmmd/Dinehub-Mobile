@@ -32,16 +32,13 @@ const Popularjobs = () => {
   };
 
   const handleCardPress = (item) => {
-    // router.push(`/job-details/${item.job_id}`);
+    router.push(`/restaurant/${item._id}`);
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Popular Restaurants</Text>
-        <TouchableOpacity>
-          <Text style={styles.headerBtn}>Show all</Text>
-        </TouchableOpacity>
       </View>
 
       <View style={styles.cardsContainer}>
@@ -58,7 +55,7 @@ const Popularjobs = () => {
             keyExtractor={(item) => item?._id}
             horizontal
             contentContainerStyle={{ columnGap: SIZES.medium }}
-            style={{ paddingTop: 8, paddingBottom: 8 }}
+            style={{ paddingTop: 4, paddingBottom: 8 }}
           />
         )}
       </View>
