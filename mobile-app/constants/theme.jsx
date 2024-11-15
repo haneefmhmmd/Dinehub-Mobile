@@ -4,6 +4,9 @@ const COLORS = {
   tertiary: "#635f5c",
   lightWhite: "#FAFAFC",
   white: "#F3F4F8",
+
+  gray100: "#C1C0C8",
+  gray200: "#83829A",
 };
 
 const FONT = {

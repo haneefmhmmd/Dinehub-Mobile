@@ -65,7 +65,7 @@ exports.getAll = async (req, res) => {
 
 /**
  * Handles restaurant login by verifying business email and password.
- * 
+ *
  * @param {Object} req - The request object containing restaurant credentials.
  * @param {Object} res - The response object used to send responses back to the client.
  * @returns {Promise<void>} Sends back a response indicating the success or failure of the login attempt.
@@ -73,7 +73,9 @@ exports.getAll = async (req, res) => {
 exports.login = async (req, res) => {
   // Check if businessEmail and password are provided
   if (!req.body.businessEmail || !req.body.password) {
-    return res.status(400).json({ error: "Please make sure all the fields are completed!" });
+    return res
+      .status(400)
+      .json({ error: "Please make sure all the fields are completed!" });
   }
 
   try {
@@ -120,7 +122,7 @@ exports.login = async (req, res) => {
 
 /**
  * Updates restaurant details based on the provided data.
- * 
+ *
  * @param {Object} req - The request object containing the updated restaurant information and the restaurant ID.
  * @param {Object} res - The response object used to send responses back to the client.
  * @returns {Promise<void>} Sends back a response indicating the success or failure of the update attempt.
@@ -164,6 +166,22 @@ exports.update = async (req, res) => {
     res.json({ restaurant: updatedRestaurant });
   } catch (error) {
     // Handle any errors that occur during the update process
+    res.status(400).json({ error: error.message });
+  }
+};
+
+exports.getById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const restaurant = await Restaurant.findById(id);
+
+    if (!restaurant) {
+      return res.status(404).json({ error: "Restaurant not found" });
+    }
+
+    res.json({ restaurant });
+  } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
