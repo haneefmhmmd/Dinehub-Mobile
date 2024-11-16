@@ -4,7 +4,7 @@ import { ActivityIndicator, FlatList, View } from "react-native";
 import { useRouter } from "expo-router";
 import { Text } from "react-native-paper";
 import { COLORS, SIZES } from "../../../constants";
-import RestaurantCard from "../../common/cards/restaurantCard/RestaurantCard";
+import RestaurantCard from "../../common/restaurantCard/RestaurantCard";
 import styles from "./PopularRestaurants.style";
 
 const Popularjobs = () => {

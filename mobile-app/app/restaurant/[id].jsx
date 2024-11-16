@@ -15,6 +15,7 @@ import { COLORS } from "../../constants";
 import styles from "./restaurant.style";
 
 import About from "../../components/restaurant/about";
+import BusinessHours from "../../components/restaurant/BusinessHours";
 
 const Restaurant = () => {
   const params = useLocalSearchParams();
@@ -70,7 +71,10 @@ const Restaurant = () => {
         {isLoading ? (
           <ActivityIndicator size="large" color={COLORS.primary} />
         ) : (
-          <About restaurant={restaurant} />
+          <>
+            <About restaurant={restaurant} />
+            <BusinessHours businessHours={restaurant.businessHours} />
+          </>
         )}
       </ScrollView>
     </SafeAreaView>

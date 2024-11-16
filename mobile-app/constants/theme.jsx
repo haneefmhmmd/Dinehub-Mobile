@@ -1,11 +1,14 @@
+import { DefaultTheme } from "react-native-paper";
+
 const COLORS = {
   primary: "#ffd740",
-  secondary: "#1e2223",
-  tertiary: "#635f5c",
+  secondary: "#685e40",
+  tertiary: "#45664c",
   lightWhite: "#FAFAFC",
   white: "#F3F4F8",
   gray100: "#C1C0C8",
   gray200: "#83829A",
+  black: "#1e2223",
 };
 
 const SIZES = {
@@ -17,4 +20,47 @@ const SIZES = {
   xxLarge: 32,
 };
 
-export { COLORS, SIZES };
+const customTheme = {
+  primary: "#ffd740",
+  onPrimary: "#ffffff",
+  primaryContainer: "#ffe17b",
+  onPrimaryContainer: "#231b00",
+  secondary: "#685e40",
+  onSecondary: "#ffffff",
+  secondaryContainer: "#f0e2bb",
+  onSecondaryContainer: "#221b04",
+  tertiary: "#45664c",
+  onTertiary: "#ffffff",
+  tertiaryContainer: "#c7eccb",
+  onTertiaryContainer: "#01210d",
+  error: "#ba1a1a",
+  onError: "#ffffff",
+  errorContainer: "#ffdad6",
+  onErrorContainer: "#410002",
+  background: "#fffbff",
+  onBackground: "#1d1b16",
+  surface: "#fffbff",
+  onSurface: "#1d1b16",
+  surfaceVariant: "#ebe2cf",
+  onSurfaceVariant: "#4b4639",
+  outline: "#7d7767",
+  outlineVariant: "#cec6b4",
+  shadow: "#000000",
+  scrim: "#000000",
+  inverseSurface: "#332e2a",
+  inverseOnSurface: "#f6f0e7",
+  inversePrimary: "#eac32b",
+  elevation: {
+    level0: "transparent",
+    level1: "#f8f3f2",
+    level2: "#f4eeeb",
+    level3: "#fafafc",
+    level4: "#eee8e0",
+    level5: "#ebe5db",
+  },
+  surfaceDisabled: "rgba(1d1b16, 0.12)", // HEX equivalent in RGBA
+  onSurfaceDisabled: "rgba(1d1b16, 0.38)", // HEX equivalent in RGBA
+  backdrop: "rgba(342430, 0.4)", // HEX equivalent in RGBA
+};
+
+export { COLORS, customTheme, SIZES };
