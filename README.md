@@ -20,6 +20,7 @@ This project is built using the following technologies:
 
 - **React Native:** A framework for building native apps using React.
 - **Expo:** A framework and platform for universal React applications that helps streamline development and testing.
+- **React Native Paper:** A library that provides Material Design components to create beautiful and consistent UIs in React Native apps.
 - **MongoDB:** A NoSQL database for storing restaurant and user information securely.
 - **Express.js:** A web application framework for Node.js that simplifies building robust APIs.
 - **JavaScript:** The primary programming languages used in this project for both frontend and backend development.
