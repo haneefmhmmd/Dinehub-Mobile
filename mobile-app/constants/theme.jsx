@@ -4,15 +4,8 @@ const COLORS = {
   tertiary: "#635f5c",
   lightWhite: "#FAFAFC",
   white: "#F3F4F8",
-
   gray100: "#C1C0C8",
   gray200: "#83829A",
-};
-
-const FONT = {
-  regular: "",
-  medium: "",
-  bold: "",
 };
 
 const SIZES = {
@@ -24,4 +17,4 @@ const SIZES = {
   xxLarge: 32,
 };
 
-export { COLORS, FONT, SIZES };
+export { COLORS, SIZES };
