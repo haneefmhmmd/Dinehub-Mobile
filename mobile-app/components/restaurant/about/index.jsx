@@ -1,6 +1,5 @@
-import { Image, Text, View } from "react-native";
-
-import { useEffect } from "react";
+import { Image, View } from "react-native";
+import { Surface, Text } from "react-native-paper";
 import { isRestaurantOpen } from "../../../utils/restaurant";
 import styles from "./about.style";
 
@@ -10,21 +9,23 @@ const Restaurant = ({ restaurant }) => {
 
   return (
     <>
-      <View style={styles.bannerContainer}>
+      <View>
         <Image
           source={{ uri: restaurant.bannerImageHref }}
           style={styles.bannerImageHref}
           resizeMode="cover"
         />
-        <View style={styles.logoContainer}>
+        <Surface style={styles.logoContainer} elevation={1}>
           <Image
             source={{ uri: restaurant.logoHref }}
             style={styles.logoHref}
             resizeMode="contain"
           />
-        </View>
+        </Surface>
       </View>
-      <Text style={styles.restaurantName}>{restaurant.name}</Text>
+      <Text variant="titleMedium" style={styles.restaurantName}>
+        {restaurant.name}
+      </Text>
       <View style={styles.infoContainer}>
         <Text
           style={[

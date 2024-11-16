@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, FlatList, Text, View } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 
 import { useRouter } from "expo-router";
-import { TouchableOpacity } from "react-native";
+import { Text } from "react-native-paper";
 import { COLORS, SIZES } from "../../../constants";
 import RestaurantCard from "../../common/cards/restaurantCard/RestaurantCard";
 import styles from "./PopularRestaurants.style";
+
 const Popularjobs = () => {
   const router = useRouter();
 
@@ -37,8 +38,8 @@ const Popularjobs = () => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerTitle}>Popular Restaurants</Text>
+      <View>
+        <Text variant="titleLarge">Popular Restaurants</Text>
       </View>
 
       <View style={styles.cardsContainer}>
@@ -55,7 +56,7 @@ const Popularjobs = () => {
             keyExtractor={(item) => item?._id}
             horizontal
             contentContainerStyle={{ columnGap: SIZES.medium }}
-            style={{ paddingTop: 4, paddingBottom: 8 }}
+            style={{ paddingTop: 4, paddingBottom: 8, paddingLeft: 2 }}
           />
         )}
       </View>
