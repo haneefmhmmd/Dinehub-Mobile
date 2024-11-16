@@ -1,13 +1,17 @@
 import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import { Drawer } from "react-native-paper";
 
+import { useState } from "react";
+import { Button, Card, Text } from "react-native-paper";
 import ScreenHeaderBtn from "../components/header/ScreenHeaderBtn";
+import CtaCard from "../components/home/cta-card/CtaCard";
 import PopularRestaurants from "../components/home/popular/PopularRestaurants";
 import Welcome from "../components/home/welcome/Welcome";
 import { COLORS, icons, images, SIZES } from "../constants";
 
 export default function App() {
+  const [active, setActive] = useState("");
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
@@ -32,6 +36,7 @@ export default function App() {
         >
           <Welcome />
           <PopularRestaurants />
+          <CtaCard />
         </View>
       </ScrollView>
     </SafeAreaView>
