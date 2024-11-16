@@ -1,4 +1,4 @@
-import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import { StyleSheet } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 
 import { COLORS, SIZES } from "../../../constants";
@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: SIZES.small,
   },
   ctaButton: {
-    backgroundColor: COLORS.secondary,
+    backgroundColor: COLORS.black,
   },
 });
 
