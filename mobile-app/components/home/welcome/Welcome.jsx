@@ -28,7 +28,6 @@ const Welcome = ({ searchTerm, handleClick }) => {
         style={{
           borderRadius: 6,
           marginTop: 12,
-          backgroundColor: COLORS.lightWhite,
         }}
       />
     </View>
