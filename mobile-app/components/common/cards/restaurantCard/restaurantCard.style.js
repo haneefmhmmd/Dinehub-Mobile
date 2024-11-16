@@ -1,16 +1,11 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SHADOWS, SIZES } from "../../../../constants";
+import { COLORS, SIZES } from "../../../../constants";
 
 const styles = StyleSheet.create({
   container: {
     width: 250,
-    padding: SIZES.xLarge,
-    backgroundColor: "#FFF",
-    borderRadius: SIZES.medium,
-    justifyContent: "space-between",
-    ...SHADOWS.medium,
-    shadowColor: COLORS.gray100,
+    backgroundColor: COLORS.lightWhite,
   },
   logoContainer: {
     width: 50,
@@ -25,32 +20,13 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: "50%",
   },
-  cuisine: {
-    fontSize: SIZES.medium,
-    fontFamily: FONT.regular,
-    color: "#B3AEC6",
-    marginTop: SIZES.small / 1.5,
-  },
-  restaurantName: {
-    fontSize: SIZES.large,
-    fontFamily: FONT.medium,
-    color: COLORS.secondary,
-  },
-  infoWrapper: {
-    flexDirection: "row",
-    marginTop: 5,
-    justifyContent: "flex-start",
-    alignItems: "center",
-  },
   ratingContainer: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
   },
   rating: {
-    fontSize: SIZES.medium - 2,
-    fontFamily: FONT.regular,
-    color: "#B3AEC6",
+    color: COLORS.gray200,
     marginLeft: 4,
     marginTop: 2,
   },

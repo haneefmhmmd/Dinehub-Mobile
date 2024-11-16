@@ -10,9 +10,9 @@ const COLORS = {
 };
 
 const FONT = {
-  regular: "DMRegular",
-  medium: "DMMedium",
-  bold: "DMBold",
+  regular: "",
+  medium: "",
+  bold: "",
 };
 
 const SIZES = {
@@ -24,27 +24,4 @@ const SIZES = {
   xxLarge: 32,
 };
 
-const SHADOWS = {
-  small: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 2,
-  },
-  medium: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 5.84,
-    elevation: 5,
-  },
-};
-
-export { COLORS, FONT, SHADOWS, SIZES };
+export { COLORS, FONT, SIZES };

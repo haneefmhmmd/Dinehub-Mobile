@@ -3,42 +3,34 @@ import { useState } from "react";
 import {
   FlatList,
   Image,
-  Text,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
 
-import { COLORS, icons, SIZES } from "../../../constants";
-import styles from "./welcome.style";
+import { Text } from "react-native-paper";
+
+import { Searchbar } from "react-native-paper";
+import { COLORS } from "../../../constants";
 
 const Welcome = ({ searchTerm, handleClick }) => {
   const router = useRouter();
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <View>
-      <View style={styles.container}>
-        <Text style={styles.welcomeMessage}>Find Your Table</Text>
-      </View>
-
-      <View style={styles.searchContainer}>
-        <View style={styles.searchWrapper}>
-          <TextInput
-            style={styles.searchInput}
-            value={searchTerm}
-            placeholder="Search for restaurants..."
-            placeholderTextColor={COLORS.tertiary}
-          />
-        </View>
-
-        <TouchableOpacity style={styles.searchBtn} onPress={handleClick}>
-          <Image
-            source={icons.search}
-            resizeMode="contain"
-            style={styles.searchBtnImage}
-          />
-        </TouchableOpacity>
-      </View>
+      <Text variant="displaySmall">Find Your Table</Text>
+      <Searchbar
+        placeholder="Search"
+        onChangeText={setSearchQuery}
+        value={searchQuery}
+        elevation={1}
+        style={{
+          borderRadius: 6,
+          marginTop: 12,
+          backgroundColor: COLORS.lightWhite,
+        }}
+      />
     </View>
   );
 };

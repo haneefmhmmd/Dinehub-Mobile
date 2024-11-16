@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES } from "../../../constants";
+import { SIZES } from "../../../constants";
 
 const styles = StyleSheet.create({
   container: {
@@ -10,16 +10,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-  },
-  headerTitle: {
-    fontSize: SIZES.large,
-    fontFamily: FONT.medium,
-    color: COLORS.secondary,
-  },
-  headerBtn: {
-    fontSize: SIZES.medium,
-    fontFamily: FONT.medium,
-    color: COLORS.gray100,
   },
   cardsContainer: {
     marginTop: SIZES.medium,

@@ -35,7 +35,7 @@ const Restaurant = () => {
         `http://localhost:3000/restaurant/${params.id}`
       );
       const response = await fetchRestaurants.json();
-      console.log("response: ", response.restaurant.businessHours);
+      console.log("response: ", response.restaurant);
       setRestaurant(response.restaurant);
       setIsLoading(false);
       setError(null);
