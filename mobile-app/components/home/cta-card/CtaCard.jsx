@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 
 import { COLORS, SIZES } from "../../../constants";
+import { router } from "expo-router";
 
 const CtaCard = () => {
   return (
@@ -16,7 +17,7 @@ const CtaCard = () => {
       <Card.Actions style={{ marginTop: 8 }}>
         <Button
           mode="contained"
-          onPress={() => console.log("Navigate to signup")}
+          onPress={() => router.navigate("dashboard")}
           style={styles.ctaButton}
         >
           Sign Up Now

@@ -25,7 +25,7 @@ export default function App() {
   const handleNavigate = (screen) => {
     console.log(`Navigating to ${screen}`);
     // Add navigation logic here, e.g., navigation.navigate(screen);
-    router.push(screen);
+    router.navigate(screen);
   };
 
   const handleSearch = async (searchText) => {
@@ -51,7 +51,7 @@ export default function App() {
       <CustomDrawer
         visible={drawerVisible}
         onDismiss={() => setDrawerVisible(false)}
-        onNavigate={(screen) => console.log(`Navigating to ${screen}`)}
+        onNavigate={(screen) => handleNavigate(screen)}
       />
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
         <Stack.Screen

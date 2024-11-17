@@ -9,6 +9,46 @@ export default function Index() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(""); 
+
+  const handleLogin = async () => {
+    
+    setError("");
+    
+    if (!email || !password) {
+      setError("Please fill in both email and password.");
+      return;
+    }
+
+    setLoading(true); 
+
+    try {
+      const response = await fetch("http://localhost:3000/restaurant/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ businessEmail: email, password: password })
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log("Login successful:", data);
+        // router.push("/dashboard");
+      } else {
+        setError(data.message || "An error occurred. Please try again.");
+      }
+    } catch (error) {
+      setError("Network error. Please try again.");
+      console.error("Error during login:", error);
+
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   return (
 
@@ -23,7 +63,7 @@ export default function Index() {
                 iconUrl={icons.chevronLeft}
                 dimension="60%"
                 handlePress={() => {
-                  router.back()
+                  router.navigate("")
                 }}
               />
             ),
@@ -55,7 +95,14 @@ export default function Index() {
           onChangeText={password => setPassword(password)}
         />
 
-        <Button style={{ marginTop: 40, padding: 5, borderRadius: 25 }} mode="contained" onPress={() => console.log('Log in')}>
+        {error ? <Text style={styles.errorText}>{error}</Text> : null}
+
+        <Button
+          style={{ marginTop: 40, padding: 5, borderRadius: 25 }}
+          mode="contained"
+          onPress={handleLogin}
+          loading={loading}
+        >
           Login
         </Button>
 
@@ -63,7 +110,7 @@ export default function Index() {
 
        <Text variant="displayMedium" style={{ fontSize: SIZES.medium, marginTop: 50}}>Don't have an account?</Text>
 
-        <Button mode="outlined" onPress={() => console.log('Sign Up')}>
+        <Button mode="outlined" onPress={() => { router.navigate("/signup") }}>
           Sign Up
         </Button>
 
@@ -80,5 +127,10 @@ const styles = StyleSheet.create({
     height: 56,
     backgroundColor: "#fff",
     marginTop: 30
+  },
+  errorText: {
+    color: "red",
+    marginTop: 10,
+    textAlign: "center",
   }
 });

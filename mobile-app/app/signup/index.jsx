@@ -2,8 +2,8 @@ import { View, StyleSheet, SafeAreaView, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { COLORS, icons, images, SIZES } from "../../constants";
 import { Text, TextInput, Button } from 'react-native-paper';
-import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
 import { Stack, router } from "expo-router";
+import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
 
 export default function Index() {
 
@@ -25,7 +25,7 @@ export default function Index() {
               iconUrl={icons.chevronLeft}
               dimension="60%"
               handlePress={() => {
-                router.back()
+                router.navigate("")
               }}
             />
           ),
@@ -77,9 +77,9 @@ export default function Index() {
           Sign Up
         </Button>
 
-        <Text variant="displayMedium" style={{ fontSize: SIZES.medium, marginTop: 50}}>Already have an account?</Text>
+        <Text variant="displayMedium" style={{ fontSize: SIZES.medium, marginTop: 50, textAlign: "center"}}>Already have an account?</Text>
 
-        <Button mode="outlined" onPress={() => console.log('Sign Up')}>
+        <Button mode="outlined" onPress={() => { router.navigate("/login") }}>
           Sign Up
         </Button>
 
