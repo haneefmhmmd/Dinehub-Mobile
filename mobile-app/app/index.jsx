@@ -1,17 +1,29 @@
 import { Stack, useRouter } from "expo-router";
-import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
-import { Drawer } from "react-native-paper";
 import { useState } from "react";
-import { Button, Card, Text } from "react-native-paper";
+import {
+  Image,
+  SafeAreaView,
+  SafeAreaView,
+  ScrollView,
+  ScrollView,
+  StyleSheet,
+  StyleSheet,
+  View,
+  View,
+} from "react-native";
+import { Drawer } from "react-native-paper";
 import CustomDrawer from "../components/common/drawer/Drawer";
 import ScreenHeaderBtn from "../components/header/ScreenHeaderBtn";
 import CtaCard from "../components/home/cta-card/CtaCard";
 import PopularRestaurants from "../components/home/popular/PopularRestaurants";
+import SearchResults from "../components/home/search-results";
 import Welcome from "../components/home/welcome/Welcome";
 import { COLORS, icons, images, SIZES } from "../constants";
 
 export default function App() {
   const [drawerVisible, setDrawerVisible] = useState(false);
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const router = useRouter();
 
@@ -19,7 +31,24 @@ export default function App() {
     console.log(`Navigating to ${screen}`);
     // Add navigation logic here, e.g., navigation.navigate(screen);
     router.push(screen);
-    
+  };
+
+  const handleSearch = async (searchText) => {
+    setSearchTerm(searchText);
+    if (!searchText) return; // Exit if search query is empty
+
+    try {
+      const response = await fetch(
+        `http://localhost:3000/restaurant/search?name=${searchText}`
+      );
+      const data = await response.json();
+      console.log("Rslts; ", data, searchText);
+      if (data && data.restaurants) {
+        setSearchResults(data.restaurants); // Update state with search results
+      }
+    } catch (error) {
+      console.error("Error fetching search results:", error);
+    }
   };
 
   return (
@@ -27,7 +56,7 @@ export default function App() {
       <CustomDrawer
         visible={drawerVisible}
         onDismiss={() => setDrawerVisible(false)}
-        onNavigate={handleNavigate}
+        onNavigate={(screen) => console.log(`Navigating to ${screen}`)}
       />
       <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
         <Stack.Screen
@@ -38,13 +67,8 @@ export default function App() {
               <ScreenHeaderBtn
                 iconUrl={icons.menu}
                 dimension="60%"
-                handlePress={() => {
-                  setDrawerVisible(true);
-                }}
+                handlePress={() => setDrawerVisible(true)}
               />
-            ),
-            headerRight: () => (
-              <ScreenHeaderBtn iconUrl={icons.user} dimension="60%" />
             ),
             headerTitle: "",
           }}
@@ -56,9 +80,15 @@ export default function App() {
               padding: SIZES.medium,
             }}
           >
-            <Welcome />
-            <PopularRestaurants />
-            <CtaCard />
+            <Welcome handleSearch={handleSearch} />
+            {searchTerm.length > 0 ? (
+              <SearchResults restaurants={searchResults} />
+            ) : (
+              <>
+                <PopularRestaurants />
+                <CtaCard />
+              </>
+            )}
           </View>
         </ScrollView>
       </SafeAreaView>

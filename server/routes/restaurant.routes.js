@@ -27,6 +27,10 @@ router.put("/restaurant/:id", controller.update);
 
 // router.delete("/restaurant/:id", controller.delete);
 
+// Define a route for retrieving a restaurant by name using query parameters
+// Example: /restaurant/search?name=PizzaPlace
+router.get("/restaurant/search", controller.getByName);
+
 router.get("/restaurant/:id", controller.getById);
 
 module.exports = router;

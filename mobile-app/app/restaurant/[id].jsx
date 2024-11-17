@@ -54,14 +54,6 @@ const Restaurant = () => {
     setRefreshing(false);
   }, []);
 
-  const ReserveButton = () => {
-    return (
-      <Button mode="contained" onPress={() => console.log("Pressed")}>
-        Reserve
-      </Button>
-    );
-  };
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen

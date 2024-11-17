@@ -185,3 +185,28 @@ exports.getById = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+exports.getByName = async (req, res) => {
+  const { name } = req.query; // Extract the 'name' query parameter
+
+  try {
+    if (!name) {
+      return res.status(400).json({ error: "Restaurant name is required" });
+    }
+
+    // Find a restaurant with a name matching the query (case insensitive)
+    const restaurants = await Restaurant.find({
+      name: { $regex: name, $options: "i" },
+    });
+
+    if (!restaurants) {
+      return res.status(404).json({ error: "Restaurant not found" });
+    }
+
+    res.json({ restaurants });
+  } catch (error) {
+    res
+      .status(500)
+      .json({ error: "An error occurred while fetching the restaurant" });
+  }
+};
