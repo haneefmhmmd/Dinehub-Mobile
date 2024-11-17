@@ -1,7 +1,6 @@
-import { Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import { Drawer } from "react-native-paper";
-
 import { useState } from "react";
 import { Button, Card, Text } from "react-native-paper";
 import CustomDrawer from "../components/common/drawer/Drawer";
@@ -14,9 +13,13 @@ import { COLORS, icons, images, SIZES } from "../constants";
 export default function App() {
   const [drawerVisible, setDrawerVisible] = useState(false);
 
+  const router = useRouter();
+
   const handleNavigate = (screen) => {
     console.log(`Navigating to ${screen}`);
     // Add navigation logic here, e.g., navigation.navigate(screen);
+    router.push(screen);
+    
   };
 
   return (

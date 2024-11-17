@@ -15,14 +15,14 @@ const CustomDrawer = ({ visible, onDismiss, onNavigate }) => {
           <Drawer.Item
             label="Login"
             onPress={() => {
-              onNavigate("login");
+              onNavigate("/login");
               onDismiss();
             }}
           />
           <Drawer.Item
             label="Sign Up"
             onPress={() => {
-              onNavigate("signup");
+              onNavigate("/signup");
               onDismiss();
             }}
           />
