@@ -11,12 +11,14 @@ import {
 import { Button, FAB } from "react-native-paper";
 
 import { useCallback, useEffect, useState } from "react";
-import { COLORS } from "../../constants";
+import { COLORS, icons } from "../../constants";
 
 import styles from "./restaurant.style";
 
 import About from "../../components/restaurant/about";
 import Menu from "../../components/restaurant/menu";
+
+import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
 
 const Restaurant = () => {
   const params = useLocalSearchParams();
@@ -54,11 +56,24 @@ const Restaurant = () => {
     setRefreshing(false);
   }, []);
 
+  const navigateToReservationPage = () => {
+    router.navigate("reservation");
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
         options={{
           title: restaurant && restaurant.name,
+          headerLeft: () => (
+            <ScreenHeaderBtn
+              iconUrl={icons.chevronLeft}
+              dimension="60%"
+              handlePress={() => {
+                router.back();
+              }}
+            />
+          ),
         }}
       />
       <FAB
@@ -66,7 +81,7 @@ const Restaurant = () => {
         label="Reserve"
         style={styles.fab}
         mode="elevated"
-        onPress={() => console.log("Pressed")}
+        onPress={navigateToReservationPage}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}
