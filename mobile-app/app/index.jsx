@@ -3,15 +3,10 @@ import { useState } from "react";
 import {
   Image,
   SafeAreaView,
-  SafeAreaView,
-  ScrollView,
   ScrollView,
   StyleSheet,
-  StyleSheet,
-  View,
   View,
 } from "react-native";
-import { Drawer } from "react-native-paper";
 import CustomDrawer from "../components/common/drawer/Drawer";
 import ScreenHeaderBtn from "../components/header/ScreenHeaderBtn";
 import CtaCard from "../components/home/cta-card/CtaCard";
