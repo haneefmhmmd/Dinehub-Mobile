@@ -8,11 +8,16 @@ const BusinessHoursAccordion = ({ businessHours }) => {
 
   // Get current day of the week for highlighting
   const currentDay = new Date().toLocaleString("en-us", { weekday: "long" });
+  const todayHours = businessHours.find((item) => item.day === currentDay);
 
   return (
-    <List.Section>
+    <List.Section style={{ marginTop: -2, zIndex: -1 }}>
       <List.Accordion
-        title={`Today: ${currentDay}`}
+        title={`Today: ${
+          todayHours
+            ? `${todayHours.openHours.startTime} - ${todayHours.openHours.endTime}`
+            : "Closed"
+        }`}
         left={(props) => (
           <List.Icon
             {...{ ...props, color: COLORS.black }}
@@ -27,8 +32,8 @@ const BusinessHoursAccordion = ({ businessHours }) => {
           padding: 0, // Remove default padding
         }}
         titleStyle={{
-          color: expanded ? "black" : "gray", // Set the text color to black when expanded
-          paddingLeft: 0, // Align the text without extra padding
+          color: "black",
+          paddingLeft: 0,
         }}
       >
         {businessHours.map((item) => (

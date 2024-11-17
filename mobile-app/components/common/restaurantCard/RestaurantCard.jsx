@@ -1,15 +1,13 @@
 import React from "react";
 import { Image, View } from "react-native";
 import { Card, Text } from "react-native-paper";
-import { icons } from "../../../constants";
+import { icons, images } from "../../../constants";
 import styles from "./restaurantCard.style";
 
 const RestaurantCard = ({ data, handlePress }) => {
   const LeftContent = () => (
     <Image
-      source={{
-        uri: data.logoHref ? data.logoHref : "",
-      }}
+      source={data.logoHref ? { uri: data.logoHref } : images.restaurant}
       resizeMode="cover"
       style={styles.logoImage}
     />
