@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { Button, FAB } from "react-native-paper";
 
 import { useCallback, useEffect, useState } from "react";
 import { COLORS } from "../../constants";
@@ -15,7 +16,7 @@ import { COLORS } from "../../constants";
 import styles from "./restaurant.style";
 
 import About from "../../components/restaurant/about";
-import BusinessHours from "../../components/restaurant/BusinessHours";
+import Menu from "../../components/restaurant/menu";
 
 const Restaurant = () => {
   const params = useLocalSearchParams();
@@ -36,7 +37,6 @@ const Restaurant = () => {
         `http://localhost:3000/restaurant/${params.id}`
       );
       const response = await fetchRestaurants.json();
-      console.log("response: ", response.restaurant);
       setRestaurant(response.restaurant);
       setIsLoading(false);
       setError(null);
@@ -61,6 +61,13 @@ const Restaurant = () => {
           title: restaurant && restaurant.name,
         }}
       />
+      <FAB
+        icon="plus"
+        label="Reserve"
+        style={styles.fab}
+        mode="elevated"
+        onPress={() => console.log("Pressed")}
+      />
       <ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -71,10 +78,10 @@ const Restaurant = () => {
         {isLoading ? (
           <ActivityIndicator size="large" color={COLORS.primary} />
         ) : (
-          <>
+          <View style={{ paddingBottom: 70 }}>
             <About restaurant={restaurant} />
-            <BusinessHours businessHours={restaurant.businessHours} />
-          </>
+            <Menu />
+          </View>
         )}
       </ScrollView>
     </SafeAreaView>
