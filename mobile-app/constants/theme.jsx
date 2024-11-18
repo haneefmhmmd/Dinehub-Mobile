@@ -58,9 +58,6 @@ const customTheme = {
     level4: "#eee8e0",
     level5: "#ebe5db",
   },
-  surfaceDisabled: "rgba(1d1b16, 0.12)", // HEX equivalent in RGBA
-  onSurfaceDisabled: "rgba(1d1b16, 0.38)", // HEX equivalent in RGBA
-  backdrop: "rgba(342430, 0.4)", // HEX equivalent in RGBA
 };
 
 export { COLORS, customTheme, SIZES };
