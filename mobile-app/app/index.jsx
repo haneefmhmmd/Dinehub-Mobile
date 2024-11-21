@@ -68,7 +68,7 @@ export default function App() {
             headerTitle: "",
           }}
         />
-        <ScrollView showsVerticalScrollIndicator="false">
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View
             style={{
               flex: 1,
