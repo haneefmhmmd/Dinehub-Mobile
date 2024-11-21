@@ -1,4 +1,5 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { Picker } from "@react-native-picker/picker";
 import { router, Stack } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -11,7 +12,6 @@ import {
   View,
 } from "react-native";
 import { Dialog, Portal, Text, TextInput } from "react-native-paper";
-import RNPickerSelect from "react-native-picker-select"; // Import Picker
 import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
 import { COLORS, icons } from "../../constants";
 
@@ -174,7 +174,7 @@ const ReservationPage = () => {
               onDismiss={() => setShowDatePicker(false)}
               style={{ borderRadius: 4, top: -20 }}
             >
-              <Dialog.Content>
+              <Dialog.Content style={{ width: "100%", left: -26 }}>
                 <DateTimePicker
                   value={date}
                   mode="date"
@@ -208,15 +208,16 @@ const ReservationPage = () => {
             {/* Arrival Time */}
             <View style={styles.inputContainer}>
               <Text style={{ marginBottom: 8 }}>Arrival Time</Text>
-              <RNPickerSelect
-                style={pickerSelectStyles}
-                value={arrivalTime}
-                onValueChange={setArrivalTime}
-                items={availableTimes.map((time) => ({
-                  label: time,
-                  value: time,
-                }))}
-              />
+              <Picker
+                selectedValue={arrivalTime}
+                onValueChange={(itemValue, itemIndex) =>
+                  setArrivalTime(itemValue)
+                }
+              >
+                {availableTimes.map((time) => (
+                  <Picker.Item label={time} value={time} key={time} />
+                ))}
+              </Picker>
             </View>
 
             {/* Name */}
