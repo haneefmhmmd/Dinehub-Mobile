@@ -174,7 +174,7 @@ const ReservationPage = () => {
               onDismiss={() => setShowDatePicker(false)}
               style={{ borderRadius: 4, top: -20 }}
             >
-              <Dialog.Content>
+              <Dialog.Content style={{ width: "100%", left: -26 }}>
                 <DateTimePicker
                   value={date}
                   mode="date"

@@ -21,6 +21,7 @@ import Menu from "../../components/restaurant/menu";
 import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
 
 const Restaurant = () => {
+  const API_ENDPOINT = process.env.EXPO_PUBLIC_API_URL;
   const params = useLocalSearchParams();
   const router = useRouter();
 
@@ -36,7 +37,7 @@ const Restaurant = () => {
     setIsLoading(true);
     try {
       const fetchRestaurants = await fetch(
-        `http://localhost:3000/restaurant/${params.id}`
+        `${API_ENDPOINT}/restaurant/${params.id}`
       );
       const response = await fetchRestaurants.json();
       setRestaurant(response.restaurant);

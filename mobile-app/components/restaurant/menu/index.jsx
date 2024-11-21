@@ -5,6 +5,7 @@ import { Card, Text } from "react-native-paper";
 import { COLORS, SIZES } from "../../../constants";
 
 const Menu = () => {
+  const API_ENDPOINT = process.env.EXPO_PUBLIC_API_URL;
   const params = useLocalSearchParams();
   const [menus, setMenus] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -21,7 +22,7 @@ const Menu = () => {
     setIsLoading(true);
     try {
       const request = await fetch(
-        `http://localhost:3000/menu/restaurant/${params.id}`
+        `${API_ENDPOINT}/menu/restaurant/${params.id}`
       );
       const response = await request.json();
       const fetchedMenus = response?.restaurantMenu[0]?.menuItems ?? [];

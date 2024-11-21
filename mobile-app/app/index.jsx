@@ -13,9 +13,10 @@ import CtaCard from "../components/home/cta-card/CtaCard";
 import PopularRestaurants from "../components/home/popular/PopularRestaurants";
 import SearchResults from "../components/home/search-results";
 import Welcome from "../components/home/welcome/Welcome";
-import { COLORS, icons, images, SIZES } from "../constants";
+import { COLORS, icons, SIZES } from "../constants";
 
 export default function App() {
+  const API_ENDPOINT = process.env.EXPO_PUBLIC_API_URL;
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,7 +35,7 @@ export default function App() {
 
     try {
       const response = await fetch(
-        `http://localhost:3000/restaurant/search?name=${searchText}`
+        `${API_ENDPOINT}/restaurant/search?name=${searchText}`
       );
       const data = await response.json();
       console.log("Rslts; ", data, searchText);

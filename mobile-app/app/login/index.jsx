@@ -1,35 +1,34 @@
-import { View, StyleSheet, SafeAreaView } from "react-native";
+import { router, Stack } from "expo-router";
 import React, { useState } from "react";
-import { COLORS, icons, images, SIZES } from "../../constants";
-import { Text, TextInput, Button } from 'react-native-paper';
-import { Stack, router } from "expo-router";
+import { SafeAreaView, StyleSheet, View } from "react-native";
+import { Button, Text, TextInput } from "react-native-paper";
 import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
+import { COLORS, icons, images, SIZES } from "../../constants";
 
 export default function Index() {
-
+  const API_ENDPOINT = process.env.EXPO_PUBLIC_API_URL;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(""); 
+  const [error, setError] = useState("");
 
   const handleLogin = async () => {
-    
     setError("");
-    
+
     if (!email || !password) {
       setError("Please fill in both email and password.");
       return;
     }
 
-    setLoading(true); 
+    setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:3000/restaurant/login", {
+      const response = await fetch(`${API_ENDPOINT}/restaurant/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ businessEmail: email, password: password })
+        body: JSON.stringify({ businessEmail: email, password: password }),
       });
 
       const data = await response.json();
@@ -43,48 +42,62 @@ export default function Index() {
     } catch (error) {
       setError("Network error. Please try again.");
       console.error("Error during login:", error);
-
     } finally {
       setLoading(false);
     }
   };
 
-
   return (
-
-    <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite, alignItems: "center"  }}>
-
+    <SafeAreaView
+      style={{
+        flex: 1,
+        backgroundColor: COLORS.lightWhite,
+        alignItems: "center",
+      }}
+    >
       <Stack.Screen
-          options={{
-            headerStyle: { backgroundColor: COLORS.lightWhite },
-            headerShadowVisible: false,
-            headerLeft: () => (
-              <ScreenHeaderBtn
-                iconUrl={icons.chevronLeft}
-                dimension="60%"
-                handlePress={() => {
-                  router.navigate("")
-                }}
-              />
-            ),
-            headerRight: () => (
-              <ScreenHeaderBtn iconUrl={icons.user} dimension="60%" />
-            ),
-            headerTitle: "",
-          }}
-        />
+        options={{
+          headerStyle: { backgroundColor: COLORS.lightWhite },
+          headerShadowVisible: false,
+          headerLeft: () => (
+            <ScreenHeaderBtn
+              iconUrl={icons.chevronLeft}
+              dimension="60%"
+              handlePress={() => {
+                router.navigate("");
+              }}
+            />
+          ),
+          headerRight: () => (
+            <ScreenHeaderBtn iconUrl={icons.user} dimension="60%" />
+          ),
+          headerTitle: "",
+        }}
+      />
 
-      <Text variant="displaySmall" style={{ marginTop: 50}}>Welcome back!</Text>
+      <Text variant="displaySmall" style={{ marginTop: 50 }}>
+        Welcome back!
+      </Text>
 
-      <Text variant="titleMedium" style={{ marginTop: 20, width: "80%", textAlign: "center", color: COLORS.gray200}}>Log in to your account and access a world of dining and business opportunities. Join our community today</Text>
+      <Text
+        variant="titleMedium"
+        style={{
+          marginTop: 20,
+          width: "80%",
+          textAlign: "center",
+          color: COLORS.gray200,
+        }}
+      >
+        Log in to your account and access a world of dining and business
+        opportunities. Join our community today
+      </Text>
 
-      <View style={styles.section} >
-
+      <View style={styles.section}>
         <TextInput
           style={styles.textInput}
           label="Email"
           value={email}
-          onChangeText={email => setEmail(email)}
+          onChangeText={(email) => setEmail(email)}
         />
 
         <TextInput
@@ -92,7 +105,7 @@ export default function Index() {
           label="Password"
           secureTextEntry
           value={password}
-          onChangeText={password => setPassword(password)}
+          onChangeText={(password) => setPassword(password)}
         />
 
         {error ? <Text style={styles.errorText}>{error}</Text> : null}
@@ -105,15 +118,23 @@ export default function Index() {
         >
           Login
         </Button>
-
       </View>
 
-       <Text variant="displayMedium" style={{ fontSize: SIZES.medium, marginTop: 50}}>Don't have an account?</Text>
+      <Text
+        variant="displayMedium"
+        style={{ fontSize: SIZES.medium, marginTop: 50 }}
+      >
+        Don't have an account?
+      </Text>
 
-        <Button mode="outlined" onPress={() => { router.navigate("/signup") }}>
-          Sign Up
-        </Button>
-
+      <Button
+        mode="outlined"
+        onPress={() => {
+          router.navigate("/signup");
+        }}
+      >
+        Sign Up
+      </Button>
     </SafeAreaView>
   );
 }
@@ -121,16 +142,16 @@ export default function Index() {
 const styles = StyleSheet.create({
   section: {
     marginTop: 30,
-    width: "90%"
+    width: "90%",
   },
   textInput: {
     height: 56,
     backgroundColor: "#fff",
-    marginTop: 30
+    marginTop: 30,
   },
   errorText: {
     color: "red",
     marginTop: 10,
     textAlign: "center",
-  }
+  },
 });
