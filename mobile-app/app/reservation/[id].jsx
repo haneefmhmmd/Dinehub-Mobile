@@ -1,6 +1,6 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { Picker } from "@react-native-picker/picker";
-import { router, Stack } from "expo-router";
+import { router, Stack, useLocalSearchParams } from "expo-router";
 import React, { useState } from "react";
 import {
   Alert,
@@ -16,6 +16,8 @@ import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
 import { COLORS, icons } from "../../constants";
 
 const ReservationPage = () => {
+  const API_ENDPOINT = process.env.EXPO_PUBLIC_API_URL;
+  const params = useLocalSearchParams();
   const [date, setDate] = useState(new Date());
   const [showDatePicker, setShowDatePicker] = useState(false);
   const [numberOfGuests, setNumberOfGuests] = useState("");
@@ -26,6 +28,8 @@ const ReservationPage = () => {
   const [phone, setPhone] = useState("");
   const [isTimeSlotsFetched, setIsTimeSlotsFetched] = useState(false);
   const [reservationId, setReservationId] = useState(null);
+  const [restaurant, setRestaurant] = useState(null);
+  const [table, setTable] = useState(null);
 
   const handleDateChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
@@ -36,19 +40,94 @@ const ReservationPage = () => {
   const fetchAvailableTimes = async () => {
     if (!date || !numberOfGuests) {
       Alert.alert("Error", "Please fill in all required fields.");
+      setIsTimeSlotsFetched(false);
       return;
     }
 
     try {
-      // Simulated response, replace with actual API request
-      const data = {
-        timeslots: ["09:00 AM", "10:00 AM", "11:00 AM"],
+      const fetchRestaurant = await fetch(
+        `${API_ENDPOINT}/restaurant/${params.id}`
+      );
+      const response = await fetchRestaurant.json();
+      setRestaurant(response.restaurant);
+      if (!response) {
+        Alert.alert("Error", "Restaurant details not found.");
+        setIsTimeSlotsFetched(false);
+        return;
+      }
+
+      const selectedDay = date.toLocaleDateString("en-US", { weekday: "long" });
+
+      const businessHours = response.restaurant.businessHours.find(
+        (hours) => hours.day === selectedDay
+      );
+
+      if (!businessHours) {
+        Alert.alert("Error", "No timeslots available, please try again later!");
+        setIsTimeSlotsFetched(false);
+        return;
+      }
+
+      const { startTime, endTime } = businessHours.openHours;
+
+      // Parse times manually for iOS compatibility
+      const parseTime = (timeString) => {
+        const [time, modifier] = timeString.split(" ");
+        let [hours, minutes] = time.split(":").map(Number);
+
+        if (modifier === "PM" && hours !== 12) hours += 12;
+        if (modifier === "AM" && hours === 12) hours = 0;
+
+        return { hours, minutes };
       };
-      setAvailableTimes(data.timeslots); // Assuming the API returns a "timeslots" array
+
+      const { hours: startHours, minutes: startMinutes } = parseTime(startTime);
+      const { hours: endHours, minutes: endMinutes } = parseTime(endTime);
+
+      const startDateTime = new Date(date);
+      startDateTime.setHours(startHours, startMinutes, 0, 0);
+
+      const endDateTime = new Date(date);
+      endDateTime.setHours(endHours, endMinutes, 0, 0);
+
+      const timeSlots = [];
+      let currentTime = startDateTime;
+
+      while (currentTime < endDateTime) {
+        timeSlots.push(
+          currentTime.toLocaleTimeString("en-US", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+        );
+        currentTime = new Date(currentTime.getTime() + 30 * 60 * 1000); // Increment by 30 minutes
+      }
+
+      const matchingTables = response.restaurant.seatingArrangements.filter(
+        (table) => table.tableCapacity >= numberOfGuests
+      );
+
+      if (matchingTables.length === 0) {
+        Alert.alert(
+          "Error",
+          "We are sorry, we don't have a table to match the number of guests selected!"
+        );
+        setIsTimeSlotsFetched(false);
+        return;
+      } else {
+        const table =
+          matchingTables[Math.floor(Math.random() * matchingTables.length)];
+        setTable(table.tableNumber);
+        setAvailableTimes(
+          timeSlots.map((slot) => `${slot} (Table ${table.tableNumber})`)
+        );
+      }
+
       setIsTimeSlotsFetched(true);
     } catch (error) {
-      console.error("Error fetching time slots:", error);
+      console.error(error); // Log the error for debugging
       Alert.alert("Error", "Unable to fetch time slots. Please try again.");
+      setIsTimeSlotsFetched(false);
     }
   };
 
@@ -60,14 +139,24 @@ const ReservationPage = () => {
     return true;
   };
 
-  const sendReservationData = async (data) => {
+  const sendReservationData = async () => {
+    const payload = {
+      restaurant: restaurant._id,
+      customerName: name,
+      customerEmail: email,
+      customerPhoneNumber: phone,
+      reservedDate: date,
+      slotInterval: arrivalTime,
+      tableNumber: table,
+    };
+
     try {
-      const response = await fetch("https://yourapi.com/reserve", {
+      const response = await fetch(`${API_ENDPOINT}/reservation`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(payload),
       });
       return await response.json();
     } catch (error) {
@@ -121,8 +210,8 @@ const ReservationPage = () => {
     try {
       const result = await sendReservationData(data);
 
-      if (result?.reservationId) {
-        const reservationId = result.reservationId;
+      if (result.savedReservation._id) {
+        const reservationId = result.savedReservation._id;
         setReservationId(reservationId);
         handleSuccess(reservationId);
       } else {
