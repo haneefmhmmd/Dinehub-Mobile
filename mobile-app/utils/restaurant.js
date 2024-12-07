@@ -14,7 +14,6 @@ export const isRestaurantOpen = (businessHours) => {
   ];
   const currentDay = daysOfWeek[new Date().getDay()];
   const currentTime = new Date();
-  console.log("BusinessHourse: ", businessHours);
   // Find the hours for the current day
   const todayHours = businessHours.find((hours) => hours.day === currentDay);
 
