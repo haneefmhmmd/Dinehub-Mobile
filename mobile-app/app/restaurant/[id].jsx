@@ -58,7 +58,7 @@ const Restaurant = () => {
   }, []);
 
   const navigateToReservationPage = () => {
-    router.navigate("reservation");
+    router.navigate(`reservation/${params.id}`);
   };
 
   return (
