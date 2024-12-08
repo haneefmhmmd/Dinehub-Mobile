@@ -123,3 +123,26 @@ exports.update = async (req, res) => {
     res.status(400).json({ error: error.message });
   }
 };
+
+exports.getReservationsByRestaurantId = async (req, res) => {
+  const restaurantId = req.params.id;
+
+  if (!restaurantId) {
+    return res.status(400).json({
+      error: "Restaurant ID is required!",
+    });
+  }
+
+  try {
+    const reservations = await Reservation.find({ restaurant: restaurantId });
+
+    if (!reservations || reservations.length === 0) {
+      return res
+        .status(404)
+        .json({ error: "Reservations not found for this Restaurant" });
+    }
+    res.json({ reservations });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
