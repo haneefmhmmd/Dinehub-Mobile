@@ -11,14 +11,17 @@ import {
 import { Button, FAB } from "react-native-paper";
 
 import { useCallback, useEffect, useState } from "react";
-import { COLORS } from "../../constants";
+import { COLORS, icons } from "../../constants";
 
 import styles from "./restaurant.style";
 
 import About from "../../components/restaurant/about";
 import Menu from "../../components/restaurant/menu";
 
+import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
+
 const Restaurant = () => {
+  const API_ENDPOINT = process.env.EXPO_PUBLIC_API_URL;
   const params = useLocalSearchParams();
   const router = useRouter();
 
@@ -34,7 +37,7 @@ const Restaurant = () => {
     setIsLoading(true);
     try {
       const fetchRestaurants = await fetch(
-        `http://localhost:3000/restaurant/${params.id}`
+        `${API_ENDPOINT}/restaurant/${params.id}`
       );
       const response = await fetchRestaurants.json();
       setRestaurant(response.restaurant);
@@ -54,11 +57,24 @@ const Restaurant = () => {
     setRefreshing(false);
   }, []);
 
+  const navigateToReservationPage = () => {
+    router.navigate(`reservation/${params.id}`);
+  };
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
         options={{
           title: restaurant && restaurant.name,
+          headerLeft: () => (
+            <ScreenHeaderBtn
+              iconUrl={icons.chevronLeft}
+              dimension="60%"
+              handlePress={() => {
+                router.back();
+              }}
+            />
+          ),
         }}
       />
       <FAB
@@ -66,7 +82,7 @@ const Restaurant = () => {
         label="Reserve"
         style={styles.fab}
         mode="elevated"
-        onPress={() => console.log("Pressed")}
+        onPress={navigateToReservationPage}
       />
       <ScrollView
         showsVerticalScrollIndicator={false}

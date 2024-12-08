@@ -9,7 +9,7 @@ import styles from "./PopularRestaurants.style";
 
 const Popularjobs = () => {
   const router = useRouter();
-
+  const API_ENDPOINT = process.env.EXPO_PUBLIC_API_URL;
   const [restaurants, setRestaurants] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -21,7 +21,7 @@ const Popularjobs = () => {
   const fetchRestaurants = async () => {
     setIsLoading(true);
     try {
-      const fetchRestaurants = await fetch("http://localhost:3000/restaurant");
+      const fetchRestaurants = await fetch(`${API_ENDPOINT}/restaurant`);
       const response = await fetchRestaurants.json();
       setRestaurants(response.restaurants);
       setIsLoading(false);
