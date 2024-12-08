@@ -1,8 +1,8 @@
 import { StyleSheet } from "react-native";
 import { Button, Card, Text } from "react-native-paper";
 
-import { COLORS, SIZES } from "../../../constants";
 import { router } from "expo-router";
+import { COLORS, SIZES } from "../../../constants";
 
 const CtaCard = () => {
   return (
