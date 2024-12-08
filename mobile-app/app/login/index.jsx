@@ -1,7 +1,8 @@
-import { router, Stack } from "expo-router";
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Text, TextInput, Button } from 'react-native-paper';
+import { Stack, router } from "expo-router";
+import { storeLoginData } from "../../components/common/secureStorage/secureStorage";
 import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
 import { COLORS, icons, images, SIZES } from "../../constants";
 
@@ -34,8 +35,8 @@ export default function Index() {
       const data = await response.json();
 
       if (response.ok) {
-        console.log("Login successful:", data);
-        // router.push("/dashboard");
+        storeLoginData(data);
+        router.push("/dashboard");
       } else {
         setError(data.message || "An error occurred. Please try again.");
       }

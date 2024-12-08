@@ -141,7 +141,6 @@ exports.getReservationsByRestaurantId = async (req, res) => {
         .status(404)
         .json({ error: "Reservations not found for this Restaurant" });
     }
-
     res.json({ reservations });
   } catch (error) {
     res.status(400).json({ error: error.message });
