@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 import { Button, IconButton, Text, TextInput } from "react-native-paper";
 import "../../components/common/secureStorage/secureStorage";
+import { storeLoginData } from "../../components/common/secureStorage/secureStorage";
 import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
 import { COLORS, icons, images, SIZES } from "../../constants";
 
@@ -26,6 +27,7 @@ export default function Index() {
 
   const [token, setToken] = useState("");
   const [restaurant, setRestaurant] = useState("");
+  const [updateCount, setUpdateCount] = useState(0);
 
   const [businessHours, setBusinessHours] = useState([
     {
@@ -93,8 +95,13 @@ export default function Index() {
         if (loginDataString) {
           const loginData = JSON.parse(loginDataString);
           setToken(loginData.token);
-          const restaurantData = loginData.restaurant;
-          setRestaurant(restaurantData);
+
+          const res = await fetch(
+            `http://localhost:3000/restaurant/${loginData.restaurant._id}`
+          );
+          const data = await res.json();
+          const restaurantData = data.restaurant;
+          setRestaurant(data.restaurant);
           setName(restaurantData.name);
           setEmail(restaurantData.businessEmail);
           setContactNumber(restaurantData.contactNumber);
@@ -118,7 +125,7 @@ export default function Index() {
       }
     };
     fetchToken();
-  }, []);
+  }, [updateCount]);
 
   const [seatingArrangements, setSeatingArrangements] = useState([
     { id: Date.now(), tableNumber: "", tableCapacity: "" },
@@ -149,7 +156,7 @@ export default function Index() {
     setRestaurant((prev) => ({ ...prev, [key]: value }));
   };
 
-  const handleSignUp = async () => {
+  const handleSaveRestaurantDetails = async () => {
     const payload = {
       name,
       password,
@@ -171,6 +178,8 @@ export default function Index() {
       businessHours,
     };
 
+    console.log("PAYLOAD: ", payload);
+
     try {
       const response = await fetch(
         `http://localhost:3000/restaurant/${restaurant._id}`,
@@ -190,8 +199,8 @@ export default function Index() {
       }
 
       const data = await response.json();
-      console.log("Restaurant created successfully:", data);
-      router.push("/dashboard"); // Navigate to a success page or dashboard
+      setUpdateCount(updateCount + 1);
+      router.push("/dashboard");
     } catch (error) {
       console.error("Error posting restaurant details:", error);
     }
@@ -258,7 +267,7 @@ export default function Index() {
           style={styles.textInput}
           label="Restaurant Name"
           value={name}
-          onChangeText={(text) => handleRestaurantChange("name", text)}
+          onChangeText={(text) => setName(text)}
         />
         <TextInput
           style={styles.textInput}
@@ -548,7 +557,7 @@ export default function Index() {
         <Button
           style={{ marginTop: 40, padding: 5, borderRadius: 25 }}
           mode="contained"
-          onPress={handleSignUp}
+          onPress={handleSaveRestaurantDetails}
         >
           Save
         </Button>
