@@ -1,35 +1,42 @@
-//@ts-ignore
-global.__reanimatedWorkletInit = () => {};
-import './assets/styles/fonts.css';
-
-//export { default } from './src/index';
-
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 
-const EditCategoryScreen = () => {
+const AddCategoryScreen = ({ navigation }) => {
   const [categoryName, setCategoryName] = useState('');
 
   const handleSave = () => {
-    console.log('Category Saved:', categoryName);
-    // Add your save logic here
+    if (categoryName.trim() === '') {
+      console.log('Category name is required.');
+      return;
+    }
+
+    const newCategory = { name: categoryName, id: Date.now() };
+    console.log('New Category:', newCategory);
+
+    // Reset the form state
+    setCategoryName('');
+
+    // Navigate to EditCategoryScreen with the new category
+    setTimeout(() => {
+      navigation.navigate('EditCategoryScreen', { category: newCategory });
+    }, 500); 
   };
 
   const handleCancel = () => {
     console.log('Canceled');
-    // Add your cancel logic here
+    navigation.goBack(); // Navigate back to previous screen
   };
 
   const handleDelete = () => {
-    console.log('Category Deleted:', categoryName);
-    // Add your delete logic here
+    console.log('Form cleared');
+    setCategoryName(''); // Reset the form state
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.card}>
         <View style={styles.header}>
-          <Text style={styles.headerText}>Edit Category</Text>
+          <Text style={styles.headerText}>Add Category</Text>
           <TouchableOpacity onPress={handleCancel}>
             <Text style={styles.cancelIcon}>X</Text>
           </TouchableOpacity>
@@ -37,19 +44,18 @@ const EditCategoryScreen = () => {
 
         <TextInput
           style={styles.input}
-          placeholder="Name"
+          placeholder="Category Name"
           value={categoryName}
           onChangeText={setCategoryName}
         />
 
+        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
+          <Text style={styles.saveButtonText}>Save</Text>
+        </TouchableOpacity>
+
         {/* Delete Button */}
         <TouchableOpacity style={styles.deleteButton} onPress={handleDelete}>
           <Text style={styles.deleteButtonText}>Delete</Text>
-        </TouchableOpacity>
-
-        {/* Save Button */}
-        <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-          <Text style={styles.saveButtonText}>Save</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -88,7 +94,7 @@ const styles = StyleSheet.create({
   cancelIcon: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#000', // Black
+    color: '#000',
   },
   input: {
     borderWidth: 1,
@@ -97,20 +103,8 @@ const styles = StyleSheet.create({
     padding: 10,
     marginBottom: 20,
   },
-  deleteButton: {
-    backgroundColor: '#ff3b3b', // Red color for delete button
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  deleteButtonText: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
   saveButton: {
-    backgroundColor: '#FFD700', // Yellow color
+    backgroundColor: '#FFD700',
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
@@ -120,6 +114,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
+  deleteButton: {
+    backgroundColor: '#FF6347', // Red color for delete button
+    padding: 15,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  deleteButtonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
 });
 
-export default EditCategoryScreen;
+export default AddCategoryScreen;

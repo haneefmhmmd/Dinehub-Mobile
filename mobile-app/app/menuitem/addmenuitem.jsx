@@ -1,8 +1,5 @@
 //@ts-ignore
 global.__reanimatedWorkletInit = () => {};
-import './assets/styles/fonts.css';
-
-//export { default } from './src/index';
 
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView } from 'react-native';
@@ -25,7 +22,15 @@ const AddMenuItemScreen = () => {
 
   const handleSave = () => {
     console.log('Menu Item Saved:', { name, description, category, price, imageUrl });
+
     // Add your save logic here
+
+    // Reset form fields after save
+    setName('');
+    setDescription('');
+    setCategory('');
+    setPrice('');
+    setImageUrl('');
   };
 
   const handleCancel = () => {

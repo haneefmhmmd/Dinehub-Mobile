@@ -1,17 +1,30 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity } from 'react-native';
 
-const AddCategoryScreen = () => {
+const AddCategoryScreen = ({ navigation }) => {
   const [categoryName, setCategoryName] = useState('');
 
   const handleSave = () => {
-    console.log('Category Saved:', categoryName);
-    // Add your save logic here
+    if (categoryName.trim() === '') {
+      console.log('Category name is required.');
+      return;
+    }
+    
+    const newCategory = { name: categoryName, id: Date.now() };
+    console.log('New Category:', newCategory);
+
+    // Reset the form state
+    setCategoryName('');
+
+    // Add a delay before navigating to ensure the form clears
+    setTimeout(() => {
+      navigation.navigate('EditCategoryScreen', { category: newCategory });
+    }, 500); // Adjust the timeout duration if necessary
   };
 
   const handleCancel = () => {
     console.log('Canceled');
-    // Add your cancel logic here
+    navigation.goBack(); // Go back if needed
   };
 
   return (
@@ -26,7 +39,7 @@ const AddCategoryScreen = () => {
 
         <TextInput
           style={styles.input}
-          placeholder="Name"
+          placeholder="Category Name"
           value={categoryName}
           onChangeText={setCategoryName}
         />
@@ -71,7 +84,7 @@ const styles = StyleSheet.create({
   cancelIcon: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#000', // Set to black
+    color: '#000',
   },
   input: {
     borderWidth: 1,
@@ -81,7 +94,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   saveButton: {
-    backgroundColor: '#FFD700', // Yellow color
+    backgroundColor: '#FFD700',
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',

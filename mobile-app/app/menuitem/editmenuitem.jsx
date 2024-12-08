@@ -1,8 +1,5 @@
 //@ts-ignore
 global.__reanimatedWorkletInit = () => {};
-import './assets/styles/fonts.css';
-
-//export { default } from './src/index';
 
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, ScrollView } from 'react-native';
@@ -32,11 +29,23 @@ const EditMenuItemScreen = () => {
   const handleSave = () => {
     console.log('Menu Item Saved:', { name, description, price, imageUrl });
     // Add your save logic here
+
+    // Reset form fields after save
+    setName('');
+    setDescription('');
+    setPrice('');
+    setImageUrl('');
   };
 
   const handleDelete = () => {
     console.log('Menu Item Deleted:', { name, description, price, imageUrl });
     // Add your delete logic here (e.g., API call to delete the item)
+
+    // Reset form fields after delete
+    setName('');
+    setDescription('');
+    setPrice('');
+    setImageUrl('');
   };
 
   const handleCancel = () => {
@@ -92,7 +101,6 @@ const EditMenuItemScreen = () => {
           <Text style={styles.deleteButtonText}>Delete</Text>
         </TouchableOpacity>
 
-        
         {/* Save Button */}
         <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
           <Text style={styles.saveButtonText}>Save</Text>
