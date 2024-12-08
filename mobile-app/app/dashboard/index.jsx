@@ -1,20 +1,55 @@
 import { View, StyleSheet, SafeAreaView, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { COLORS, icons, images, SIZES } from "../../constants";
 import { Text, TextInput, Button, IconButton } from 'react-native-paper';
 import { Stack, router } from "expo-router";
+import * as SecureStore from 'expo-secure-store';
+import  "../../components/common/secureStorage/secureStorage";
 import ScreenHeaderBtn from "../../components/header/ScreenHeaderBtn";
 
 export default function Index() {
 
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [about, setAbout] = useState("");
+  const [logoUrl, setLogoUrl] = useState("");
+  const [bannerUrl, setBannerUrl] = useState("");
+  const [websiteUrl, setWebsiteUrl] = useState("");
   const [contactNumber, setContactNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [cuisine, setCuisine] = useState("");
+
+  const [streetName, setStreetName] = useState("");
+  const [city, setCity] = useState("");
+  const [province, setProvince] = useState("");
+  const [postalCode, setPostalCode] = useState("");
+  const [country, setCountry] = useState("");
+
+  const [token, setToken] = useState("");
+  const [restaurant, setRestaurant] = useState("");
+
+  useEffect(() => {
+    const fetchToken = async () => {
+      try {
+        const loginDataString = await SecureStore.getItemAsync('loginData');
+        if (loginDataString) {
+          const loginData = JSON.parse(loginDataString);
+          setToken(loginData.token);
+          setRestaurant(loginData.restaurant);
+        } else {
+          console.error('No login data found. Redirecting to login.');
+        }
+      } catch (error) {
+        console.error('Error retrieving token:', error);
+      }
+    };
+    fetchToken();
+  }, []);
 
   const [seatingArrangements, setSeatingArrangements] = useState([
     { id: Date.now(), tableNumber: "", tableCapacity: "" },
   ]);
+  
 
   // Add a new seating arrangement
   const addNewSeatingArrangement = () => {
@@ -35,6 +70,11 @@ export default function Index() {
   const deleteArrangement = (id) => {
     setSeatingArrangements((prev) => prev.filter((arr) => arr.id !== id));
   };
+
+    // Update restaurant details
+    const handleRestaurantChange = (key, value) => {
+      setRestaurant((prev) => ({ ...prev, [key]: value }));
+    };
 
 
   return (
@@ -69,11 +109,9 @@ export default function Index() {
                 Effortlessly manage your restaurant's information, menu, and reservations in one place
             </Text>
 
-            <TextInput style={styles.textInput} label="Restaurant Name" value={name} onChangeText={name => setName(name)} />
+            <TextInput style={styles.textInput} label="Restaurant Name" value={restaurant.name || name} onChangeText={(text) => handleRestaurantChange("name", text)} />
 
             <TextInput style={styles.textInput} label="Password" secureTextEntry value={password} onChangeText={password => setPassword(password)} />
-
-            <TextInput style={styles.textInput} label="Restaurant Email" value={email} onChangeText={email => setEmail(email)} />
 
             <TextInput style={styles.textInput} label="About Us" />
 
@@ -83,9 +121,9 @@ export default function Index() {
 
             <TextInput style={styles.textInput} label="Website URL" />
 
-            <TextInput style={styles.textInput} label="Contact Number" value={contactNumber} onChangeText={contactNumber => setContactNumber(contactNumber)} />
+            <TextInput style={styles.textInput} label="Contact Number" value={restaurant.contactNumber} onChangeText={contactNumber => setContactNumber(contactNumber)} />
 
-            <TextInput style={styles.textInput} label="Email" />
+            <TextInput style={styles.textInput} label="Restaurant Email" value={restaurant.businessEmail} onChangeText={email => setEmail(email)} />
 
             <TextInput style={styles.textInput} label="Cuisine" />
 
