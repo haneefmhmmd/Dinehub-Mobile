@@ -150,25 +150,6 @@ export default function Index() {
   };
 
   const handleSignUp = async () => {
-    console.log(
-      name + " \n",
-      password + " \n",
-      about + " \n",
-      logoUrl + " \n",
-      bannerUrl + " \n",
-      websiteUrl + " \n",
-      contactNumber + " \n",
-      businessEmail + " \n",
-      cuisine + " \n",
-      streetName + " \n",
-      city + " \n",
-      province + " \n",
-      postalCode + " \n",
-      country + " \n",
-      seatingArrangements + " \n",
-      businessHours + " \n",
-      restaurant._id
-    );
     const payload = {
       name,
       password,
@@ -251,14 +232,27 @@ export default function Index() {
         >
           Welcome to Your Restaurant Management Dashboard
         </Text>
-
         <Text
           variant="titleMedium"
-          style={{ marginTop: 20, textAlign: "center", color: COLORS.gray200 }}
+          style={{
+            marginTop: 20,
+            marginBottom: 20,
+            textAlign: "center",
+            color: COLORS.gray200,
+          }}
         >
           Effortlessly manage your restaurant's information, menu, and
           reservations in one place
         </Text>
+
+        <Button
+          mode="outlined"
+          onPress={() => {
+            router.navigate(`manage-reservation/${restaurant._id}`);
+          }}
+        >
+          <Text>View Reservations</Text>
+        </Button>
 
         <TextInput
           style={styles.textInput}
@@ -266,7 +260,6 @@ export default function Index() {
           value={name}
           onChangeText={(text) => handleRestaurantChange("name", text)}
         />
-
         <TextInput
           style={styles.textInput}
           label="Password"
@@ -274,99 +267,84 @@ export default function Index() {
           value={password}
           onChangeText={(password) => setPassword(password)}
         />
-
         <TextInput
           style={styles.textInput}
           label="About Us"
           value={about}
           onChangeText={(text) => setAbout(text)}
         />
-
         <TextInput
           style={styles.textInput}
           label="Logo URL"
           value={logoUrl}
           onChangeText={(text) => setLogoUrl(text)}
         />
-
         <TextInput
           style={styles.textInput}
           label="Banner URL"
           value={bannerUrl}
           onChangeText={(text) => setBannerUrl(text)}
         />
-
         <TextInput
           style={styles.textInput}
           label="Website URL"
           value={websiteUrl}
           onChangeText={(text) => setWebsiteUrl(text)}
         />
-
         <TextInput
           style={styles.textInput}
           label="Contact Number"
           value={contactNumber}
           onChangeText={(contactNumber) => setContactNumber(contactNumber)}
         />
-
         <TextInput
           style={styles.textInput}
           label="Restaurant Email"
           value={businessEmail}
           onChangeText={(email) => setEmail(email)}
         />
-
         <TextInput
           style={styles.textInput}
           label="Cuisine"
           value={cuisine}
           onChangeText={(text) => setCuisine(text)}
         />
-
         <Text variant="titleLarge" style={{ marginTop: 40 }}>
           Address
         </Text>
-
         <TextInput
           style={styles.textInput}
           label="Street Name"
           value={streetName}
           onChangeText={(text) => setStreetName(text)}
         />
-
         <TextInput
           style={styles.textInput}
           label="City"
           value={city}
           onChangeText={(text) => setCity(text)}
         />
-
         <TextInput
           style={styles.textInput}
           label="Province"
           value={province}
           onChangeText={(text) => setProvince(text)}
         />
-
         <TextInput
           style={styles.textInput}
           label="Postal Code"
           value={postalCode}
           onChangeText={(text) => setPostalCode(text)}
         />
-
         <TextInput
           style={styles.textInput}
           label="Country"
           value={country}
           onChangeText={(text) => setCountry(text)}
         />
-
         <Text variant="titleLarge" style={{ marginTop: 40 }}>
           Operating Hours
         </Text>
-
         <Text
           variant="titleSmall"
           style={{ marginTop: 10, color: COLORS.gray200 }}
@@ -374,11 +352,9 @@ export default function Index() {
           Enter timings in 12-hour format (e.g., 09:00 AM). Use "00:00 AM" for
           holidays.
         </Text>
-
         <Text variant="titleLarge" style={{ marginTop: 40 }}>
           Monday
         </Text>
-
         <View style={styles.row}>
           <View style={styles.col}>
             <TextInput
@@ -397,11 +373,9 @@ export default function Index() {
             />
           </View>
         </View>
-
         <Text variant="titleLarge" style={{ marginTop: 30 }}>
           Tuesday
         </Text>
-
         <View style={styles.row}>
           <View style={styles.col}>
             <TextInput
@@ -420,11 +394,9 @@ export default function Index() {
             />
           </View>
         </View>
-
         <Text variant="titleLarge" style={{ marginTop: 30 }}>
           Wednesday
         </Text>
-
         <View style={styles.row}>
           <View style={styles.col}>
             <TextInput
@@ -443,11 +415,9 @@ export default function Index() {
             />
           </View>
         </View>
-
         <Text variant="titleLarge" style={{ marginTop: 30 }}>
           Thursday
         </Text>
-
         <View style={styles.row}>
           <View style={styles.col}>
             <TextInput
@@ -466,11 +436,9 @@ export default function Index() {
             />
           </View>
         </View>
-
         <Text variant="titleLarge" style={{ marginTop: 30 }}>
           Friday
         </Text>
-
         <View style={styles.row}>
           <View style={styles.col}>
             <TextInput
@@ -489,11 +457,9 @@ export default function Index() {
             />
           </View>
         </View>
-
         <Text variant="titleLarge" style={{ marginTop: 30 }}>
           Saturday
         </Text>
-
         <View style={styles.row}>
           <View style={styles.col}>
             <TextInput
@@ -512,11 +478,9 @@ export default function Index() {
             />
           </View>
         </View>
-
         <Text variant="titleLarge" style={{ marginTop: 30 }}>
           Sunday
         </Text>
-
         <View style={styles.row}>
           <View style={styles.col}>
             <TextInput
@@ -535,13 +499,11 @@ export default function Index() {
             />
           </View>
         </View>
-
         <Text variant="titleLarge" style={{ marginTop: 40 }}>
           Seating Arrangments
         </Text>
-
         {seatingArrangements.map((arrangement, index) => (
-          <View key={arrangement._id} style={styles.seatingArrangement}>
+          <View key={arrangement._id + index} style={styles.seatingArrangement}>
             <View style={styles.col}>
               <TextInput
                 mode="outlined"
@@ -576,7 +538,6 @@ export default function Index() {
             />
           </View>
         ))}
-
         <Button
           mode="outlined"
           onPress={addNewSeatingArrangement}
@@ -584,7 +545,6 @@ export default function Index() {
         >
           Add New Seating Arrangement
         </Button>
-
         <Button
           style={{ marginTop: 40, padding: 5, borderRadius: 25 }}
           mode="contained"
