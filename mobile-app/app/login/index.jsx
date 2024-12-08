@@ -1,7 +1,5 @@
-import { router, Stack } from "expo-router";
 import React, { useState } from "react";
 import { SafeAreaView, StyleSheet, View } from "react-native";
-import { COLORS, icons, images, SIZES } from "../../constants";
 import { Text, TextInput, Button } from 'react-native-paper';
 import { Stack, router } from "expo-router";
 import { storeLoginData } from "../../components/common/secureStorage/secureStorage";
