@@ -262,7 +262,7 @@ export default function Index() {
             router.navigate(`manage-reservation/${restaurant._id}`);
           }}
         >
-          <Text>View Reservations</Text>
+          <Text>Manage Reservations</Text>
         </Button>
 
         <TextInput
