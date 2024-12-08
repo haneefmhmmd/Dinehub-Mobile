@@ -9,6 +9,7 @@ const COLORS = {
   gray100: "#C1C0C8",
   gray200: "#83829A",
   black: "#1e2223",
+  error: "#ba1a1a",
 };
 
 const SIZES = {
