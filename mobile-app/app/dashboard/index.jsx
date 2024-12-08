@@ -116,7 +116,9 @@ export default function Index() {
           setCuisine(restaurantData.cuisine);
           setAbout(restaurantData.about);
           setSeatingArrangements(restaurantData.seatingArrangements);
-          setBusinessHours(restaurantData.businessHours);
+          if (restaurantData.businessHours) {
+            setBusinessHours(restaurantData.businessHours);
+          }
         } else {
           console.error("No login data found. Redirecting to login.");
         }
@@ -370,7 +372,10 @@ export default function Index() {
               mode="outlined"
               label="From"
               left={<TextInput.Affix text="From" />}
-              value={businessHours[0].openHours.startTime}
+              value={
+                (businessHours[0] && businessHours[0].openHours.startTime) ||
+                "00:00 AM"
+              }
             />
           </View>
           <View style={styles.col}>
@@ -378,7 +383,10 @@ export default function Index() {
               mode="outlined"
               label="To"
               left={<TextInput.Affix text="To" />}
-              value={businessHours[0].openHours.endTime}
+              value={
+                (businessHours[0] && businessHours[0].openHours.endTime) ||
+                "00:00 AM"
+              }
             />
           </View>
         </View>
@@ -391,7 +399,10 @@ export default function Index() {
               mode="outlined"
               label="From"
               left={<TextInput.Affix text="From" />}
-              value={businessHours[1].openHours.startTime}
+              value={
+                (businessHours[1] && businessHours[1].openHours.startTime) ||
+                "00:00 AM"
+              }
             />
           </View>
           <View style={styles.col}>
@@ -399,7 +410,10 @@ export default function Index() {
               mode="outlined"
               label="To"
               left={<TextInput.Affix text="To" />}
-              value={businessHours[1].openHours.endTime}
+              value={
+                (businessHours[1] && businessHours[1].openHours.endTime) ||
+                "00:00 AM"
+              }
             />
           </View>
         </View>
@@ -412,7 +426,10 @@ export default function Index() {
               mode="outlined"
               label="From"
               left={<TextInput.Affix text="From" />}
-              value={businessHours[2].openHours.startTime}
+              value={
+                (businessHours[2] && businessHours[2].openHours.startTime) ||
+                "00:00 AM"
+              }
             />
           </View>
           <View style={styles.col}>
@@ -420,7 +437,10 @@ export default function Index() {
               mode="outlined"
               label="To"
               left={<TextInput.Affix text="To" />}
-              value={businessHours[2].openHours.endTime}
+              value={
+                (businessHours[2] && businessHours[2].openHours.endTime) ||
+                "00:00 AM"
+              }
             />
           </View>
         </View>
@@ -433,7 +453,10 @@ export default function Index() {
               mode="outlined"
               label="From"
               left={<TextInput.Affix text="From" />}
-              value={businessHours[3].openHours.startTime}
+              value={
+                (businessHours[2] && businessHours[3].openHours.startTime) ||
+                "00:00 AM"
+              }
             />
           </View>
           <View style={styles.col}>
@@ -441,7 +464,10 @@ export default function Index() {
               mode="outlined"
               label="To"
               left={<TextInput.Affix text="To" />}
-              value={businessHours[3].openHours.endTime}
+              value={
+                (businessHours[3] && businessHours[3].openHours.endTime) ||
+                "00:00 AM"
+              }
             />
           </View>
         </View>
@@ -454,7 +480,10 @@ export default function Index() {
               mode="outlined"
               label="From"
               left={<TextInput.Affix text="From" />}
-              value={businessHours[4].openHours.startTime}
+              value={
+                (businessHours[4] && businessHours[4].openHours.startTime) ||
+                "00:00 AM"
+              }
             />
           </View>
           <View style={styles.col}>
@@ -462,7 +491,10 @@ export default function Index() {
               mode="outlined"
               label="To"
               left={<TextInput.Affix text="To" />}
-              value={businessHours[4].openHours.endTime}
+              value={
+                (businessHours[4] && businessHours[4].openHours.endTime) ||
+                "00:00 AM"
+              }
             />
           </View>
         </View>
@@ -475,7 +507,10 @@ export default function Index() {
               mode="outlined"
               label="From"
               left={<TextInput.Affix text="From" />}
-              value={businessHours[5].openHours.startTime}
+              value={
+                (businessHours[5] && businessHours[5].openHours.startTime) ||
+                "00:00 AM"
+              }
             />
           </View>
           <View style={styles.col}>
@@ -483,7 +518,10 @@ export default function Index() {
               mode="outlined"
               label="To"
               left={<TextInput.Affix text="To" />}
-              value={businessHours[5].openHours.endTime}
+              value={
+                (businessHours[5] && businessHours[5].openHours.endTime) ||
+                "00:00 AM"
+              }
             />
           </View>
         </View>
@@ -496,7 +534,10 @@ export default function Index() {
               mode="outlined"
               label="From"
               left={<TextInput.Affix text="From" />}
-              value={businessHours[6].openHours.startTime}
+              value={
+                (businessHours[6] && businessHours[6].openHours.startTime) ||
+                "00:00 AM"
+              }
             />
           </View>
           <View style={styles.col}>
@@ -504,7 +545,10 @@ export default function Index() {
               mode="outlined"
               label="To"
               left={<TextInput.Affix text="To" />}
-              value={businessHours[6].openHours.endTime}
+              value={
+                (businessHours[6] && businessHours[6].openHours.endTime) ||
+                "00:00 AM"
+              }
             />
           </View>
         </View>
