@@ -17,7 +17,7 @@ const CtaCard = () => {
       <Card.Actions style={{ marginTop: 8 }}>
         <Button
           mode="contained"
-          onPress={() => router.navigate("dashboard")}
+          onPress={() => router.navigate("signup")}
           style={styles.ctaButton}
         >
           Sign Up Now
